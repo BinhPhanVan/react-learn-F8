@@ -1,0 +1,64 @@
+// đa số thường xử lý form là nhiều
+import './App.css';
+import {useState} from 'react';
+
+function App() {
+
+  const [job, setJob] = useState('');
+  const [jobs, setJobs] = useState(() =>
+  {
+    const jobOld = JSON.parse(localStorage.getItem("jobs"))
+    return jobOld ?? []
+  });
+  
+  const handleAdd = () =>
+  {
+    setJobs(()=>
+    {
+      if(job !== "")
+      {
+        const newJobs = [...jobs, job];
+        const jsonJobs = JSON.stringify(newJobs)
+        localStorage.setItem("jobs", jsonJobs);
+        return newJobs
+      }
+      else
+        return jobs
+       
+    })
+    setJob(()=>
+    {
+       return "";
+    })
+  }
+  const handleRemove = (key) => {
+    setJobs(() => {
+      const newJobs = jobs.filter((item, index) => index !== key);
+      const jsonJob = JSON.stringify(newJobs);
+      localStorage.setItem("jobs", jsonJob);
+      return newJobs;
+    });
+  };
+  return (
+    <div className="App" style={{padding: 32}}>
+        <input value={job}
+        onChange={e => setJob(e.target.value)}
+        />
+        <button onClick={() =>handleAdd(job)}>ADD</button>
+        <ul>
+          {
+            jobs.map((job, index) =>
+            (
+              <li key={index}>
+                {job}
+                <button onClick={() => handleRemove(index)}>Remove</button>
+              </li>
+            ))
+          }
+        </ul>
+
+    </div>
+  );
+}
+
+export default App;

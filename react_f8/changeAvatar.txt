@@ -1,0 +1,37 @@
+import { useEffect, useState } from "react";
+
+function Content() {
+  const [avatars, setAvatars] = useState([]);
+
+  useEffect(() => {
+    return () => 
+    {
+      avatars && avatars.map((avatar) => URL.revokeObjectURL(avatar.meta));
+    };
+  }, [avatars]);
+
+  const handlePreviewAvatar = (e) => {
+    const files = Array.from(e.target.files);
+    console.log(files);
+    files.map((file) => (file.meta = URL.createObjectURL(file)));
+    setAvatars(files);
+  };
+
+  return (
+    <div>
+      <input
+        type="file"
+        multiple="multiple"
+        style={{ alignItems: "flex-start" }}
+        onChange={handlePreviewAvatar}
+      />
+      
+      {avatars &&
+        avatars.map((avatar) => {
+          return <img src={avatar.meta} alt="" width="300px" height="300px"/>;
+        })}
+    </div>
+  );
+}
+
+export default Content;

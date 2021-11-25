@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://unpkg.com/react@17/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@17/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+    <style>
+        .container {
+            width: 80px;
+            height: 30px;
+            background-color: red;
+            border-radius: 4px;
+        }
+
+        .btn {
+            text-decoration: none;
+            color: #000;
+            font-size: 16px;
+            display: block;
+            line-height: 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const root = document.querySelector('#root')
+        
+        function CourseItem({ course, onClick }) {
+            return (
+                <div>
+                    <h2 onClick={() => onClick(course)}>{course.title}</h2>
+                    <img src={course.thumbnail_cdn} />
+                    <p>{course.description}</p>
+                    <p>{course.students_count}</p>
+                </div>
+            )
+        }
+
+        function Button({ title, href, onClick }) {
+            let Component = 'button'
+            const progs = {}
+
+            if (href) {
+                Component = 'a'
+                progs.href = href
+            }
+            if (onClick) {
+                progs.onClick = onClick
+            }
+            return (
+                <Component className="btn" {...progs}>{title}</Component>
+            )
+        }
+
+        function App() {
+            return (
+                <div className="container">
+                    <Button
+                        title="Click me!"
+                        href="http://fullstack.edu.vn"
+                        onClick={() => console.log(Math.random())}
+                    />
+                </div>
+            )
+        }
+        ReactDOM.render(<App />, root)
+    </script>
+</body>
+
+</html>

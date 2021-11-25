@@ -1,0 +1,36 @@
+// đa số thường xử lý form là nhiều
+import { useReducer } from 'react';
+import './App.css';
+
+const InitialValue = 0
+
+const UP="up"
+const DOWN = "down"
+
+const reducer =(state, action)=>
+{
+  switch(action)
+  {
+    case UP:
+      return state + 1
+    case DOWN:
+      return state -1
+    default:
+      throw new Error("Invalid value")
+
+  }
+}
+function App() {
+  // const [number, setNumber] = useState(0)
+  const [number, dispatch] = useReducer(reducer, InitialValue)
+
+  return (
+    <div>
+      <h2>{number}</h2>
+      <button onClick={()=>dispatch(UP)}>UP</button>
+      <button onClick={()=>dispatch(DOWN)}>DOWN</button>
+    </div>
+  );
+}
+
+export default App;

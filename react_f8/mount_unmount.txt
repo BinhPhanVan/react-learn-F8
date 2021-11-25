@@ -1,0 +1,30 @@
+// đa số thường xử lý form là nhiều
+import './App.css';
+import {useState} from 'react';
+import Content from './Content';
+
+function App() {
+
+  const [show, setShow] = useState(false)
+ 
+  return (
+    <div className="App" style={{padding: 32}}>
+      <button onClick={()=>setShow(!show)}>Show/UnShow</button>
+      {show && <Content/>}
+    </div>
+  );
+}
+
+export default App;
+
+
+// file Content.js
+import React from "react";
+function Content()
+{
+    return(
+        <h1>Hello mọi người mình là Bình đây</h1>
+    )
+}
+
+export default Content

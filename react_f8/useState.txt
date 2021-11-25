@@ -1,0 +1,52 @@
+
+import './App.css';
+import {useState} from 'react';
+
+function App() {
+  const [Info , setInfo] = useState(
+  {
+    name: 'Phan Van Binh',
+    age : 20,
+    address : 'Hue, Viet Nam'
+  });
+  const handleUpdate = ()=>
+  {
+    setInfo(
+      pre => ({
+        ...pre,
+        bio : 'Binh dep trai'
+      })
+    )
+  }
+  const [Number, setNumber] = useState(1);
+  const handleNumber = ()=>
+  {
+    setNumber(
+     prevState => prevState + 1
+    )
+   
+  }
+
+  const [Counter, setCounter] = useState(2);
+  const handleCounter = () =>
+  {
+    setCounter(Counter +1);
+    setCounter(
+      prevState => prevState + 1
+     )
+  }
+  return (
+    <div className="App">
+       <h1>{Number}</h1>
+       <button onClick={handleNumber}>RESET NUMBER</button>
+
+       <h1>{Counter}</h1>
+       <button onClick={handleCounter}>Counter</button>
+
+       <h1>{JSON.stringify(Info)}</h1>
+       <button onClick={handleUpdate}>Update</button>
+    </div>
+  );
+}
+
+export default App;

@@ -1,0 +1,75 @@
+function emitComment(id)
+{
+  setInterval(()=>
+  {
+    window.dispatchEvent(
+      new CustomEvent(`lesson-${id}`,{
+        detail: `Nội dung comment lesson ${id}`
+      })
+    )
+  }, 2000)
+}
+emitComment(1)
+emitComment(2)
+emitComment(3)
+
+
+import { useState } from "react";
+import React from "react";
+import { useEffect } from "react";
+const lessons = [
+    {
+        id:1, 
+        name: "React là gì ?"
+    },
+    {
+        id: 2,
+        name: "Java là gì ?"
+    },
+    {
+        id: 3,
+        name: "NodeJS là gì ?"
+    }
+]
+function Content() {
+  const [lessonId, setLessonID] = useState(1)
+  useEffect( () =>
+  {
+        const handleComment = (detail) => {
+            console.log(detail);
+        }
+        window.addEventListener(`lesson-${lessonId}`, handleComment);
+        return ()=>
+        {
+            window.removeEventListener(`lesson-${lessonId}`, handleComment);
+        }
+  }, [lessonId])
+  return (
+      <div>
+          <ul>
+              {
+                  lessons.map(lesson =>
+                    (
+                        <li
+                            key={lesson.id}
+                            style={{
+                                    color : lessonId === lesson.id ?
+                                            "red" : "#333",
+                                    listStyleType : "none",
+                                    marginTop:"20px"
+                                    
+                                }
+                            }
+                            onClick={()=>setLessonID(lesson.id)}
+                        >
+                            {lesson.name}
+                        </li>
+                    ))
+              }
+          </ul>
+      </div>
+  
+  );
+}
+
+export default Content;

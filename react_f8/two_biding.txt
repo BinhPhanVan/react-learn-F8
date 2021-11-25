@@ -1,0 +1,143 @@
+// đa số thường xử lý form là nhiều
+import './App.css';
+import {useState} from 'react';
+
+
+function App() {
+
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+
+  const handleSubmit = ()=>
+  {
+    console.log({
+      name, email
+    })
+  }
+  console.log(name);
+  return (
+    <div className="App" style={{padding: 32}}>
+       <label for = "name">Họ và tên: </label>
+       <input type="text" id="name" value={name}
+         onChange={e=> setName(e.target.value)}
+       />
+       <button onClick={()=> setName('Nguyễn Văn B')}>Change</button>
+       <br/>
+       <br/>
+       <label for = "email">SUBMIT</label>
+       <input type="email" id="email" value={email}
+         onChange={e=> setEmail(e.target.value)}
+       />
+       <button onClick={handleSubmit}>Submit</button>
+
+    </div>
+  );
+}
+
+export default App;
+/// Đăng ký khóa học Radio
+// đa số thường xử lý form là nhiều
+import './App.css';
+import {useState} from 'react';
+
+const courses = [
+  {
+    id: 1,
+    name: 'JavaScripts'
+  },
+  {
+    id: 2,
+    name : 'PHP'
+  },
+  {
+    id: 3,
+    name : 'Java'
+  }
+]
+
+function App() {
+
+  const [check, setCheck] = useState(2)
+
+  const handleSubmit = ()=>
+  {
+    console.log({id:check, name: courses[check-1]});
+  }
+  return (
+    <div className="App" style={{padding: 32}}>
+      {courses.map(course => (
+           <div key={course.id}>
+              <input type="radio" name="course"
+                checked={check === course.id}
+                onChange={()=>setCheck(course.id)}
+              />
+              <label>{course.name}</label>
+           </div>
+      ))}
+       <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+
+export default App;
+// checkboxx
+// đa số thường xử lý form là nhiều
+import './App.css';
+import {useState} from 'react';
+
+const courses = [
+  {
+    id: 1,
+    name: 'JavaScripts'
+  },
+  {
+    id: 2,
+    name : 'PHP'
+  },
+  {
+    id: 3,
+    name : 'Java'
+  }
+]
+
+function App() {
+
+  const [check, setCheck] = useState([])
+  console.log(check);
+  const handleCheck = (id) =>
+  {
+    setCheck(prev => 
+      {
+        const isChecked = check.includes(id);
+        if(isChecked)
+        {
+          return check.filter(item => (item !== id))
+        } 
+        else
+        {
+          return [...prev, id]
+        } 
+      })
+  }
+ 
+  const handleSubmit = ()=>
+  {
+    console.log({ids : check});
+  }
+  return (
+    <div className="App" style={{padding: 32}}>
+      {courses.map(course => (
+           <div key={course.id}>
+              <input type="checkbox"
+                checked = {check.includes(course.id)}
+                onChange={()=> handleCheck(course.id)}
+              />
+              <label>{course.name}</label>
+           </div>
+      ))}
+       <button onClick={handleSubmit}>Submit</button>
+    </div>
+  );
+}
+
+export default App;
